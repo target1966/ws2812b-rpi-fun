@@ -57,7 +57,7 @@ async def getweather() -> None:
     
     # returns the current day's forecast temperature (int)
     print(f"{weather.temperature}{chr(176)}" )
-    print(weather.kind.index)
+    print(weather.kind)
     print(weather.kind.emoji)
     print(kind_ish(weather.kind))
     print(weather.description)
