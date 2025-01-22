@@ -192,12 +192,18 @@ try:
       # AM/PM only display p if PM
       if result.tm_hour > 11:
         #pixel_framebuf.text("p",13,4,Navy,font_name=font)
-        pixel_framebuf.text("p",13,6,Navy,font_name=font)
+        #pixel_framebuf.text("p",13,6,Navy,font_name=font)
+        pixel_framebuf.pixel(14,7,Navy)
+        pixel_framebuf.pixel(15,7,Navy)
+        pixel_framebuf.pixel(14,8,Navy)
+        pixel_framebuf.pixel(15,8,Navy)
+        pixel_framebuf.pixel(14,9,Navy)
       # Flip Month/day with Day of Week every 30 sec
       #if result.tm_sec < 30:
       if result.tm_sec < 15 or ( result.tm_sec > 30 and result.tm_sec < 45):
         # Month
         #pixel_framebuf.text(get_month(result.tm_mon),0,6,Aqua,font_name=font)
+        #pixel_framebuf.text(get_month(result.tm_mon),1,6,Aqua,font_name=font)
         month_tmp = get_month(result.tm_mon)
         pixel_framebuf.text(month_tmp[0],0,7,Aqua,font_name=font)
         pixel_framebuf.text(month_tmp[1:3],4,6,Aqua,font_name=font)
@@ -212,7 +218,7 @@ try:
           start_x = 2
         else:
           start_x = 6
-        pixel_framebuf.text(last_weather,start_x,9,Teal,font_name=font)
+        pixel_framebuf.text(last_weather,start_x,10,Teal,font_name=font)
       else:  # DOW
         pixel_framebuf.text(get_dayofweek(result.tm_wday),2,9,Teal,font_name=font)
 
