@@ -38,7 +38,7 @@ else:
     word="Hello!"
 if args.word2:
     print(f'{args.word2}')
-    word=args.word2
+    word2=args.word2
 else:
     word2="      World!"
 if args.color1:
