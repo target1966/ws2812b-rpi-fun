@@ -699,8 +699,8 @@ FONT = (  # Code Page 437 https://www.ascii-codes.com/
 
     # 98  0x62  b  Lower case b
     "#..",
+    "#..",
     "###",
-    "#.#",
     "#.#",
     "###",
 
@@ -713,8 +713,8 @@ FONT = (  # Code Page 437 https://www.ascii-codes.com/
 
     # 100  0x64  d  Lower case d
     "..#",
+    "..#",
     "###",
-    "#.#",
     "#.#",
     "###",
 
@@ -741,8 +741,8 @@ FONT = (  # Code Page 437 https://www.ascii-codes.com/
 
     # 104  0x68  h  Lower case h
     "#..",
+    "#..",
     "###",
-    "#.#",
     "#.#",
     "#.#",
 
@@ -790,8 +790,8 @@ FONT = (  # Code Page 437 https://www.ascii-codes.com/
 
     # 111  0x6F  o  Lower case o
     "...",
+    "...",
     "###",
-    "#.#",
     "#.#",
     "###",
 
@@ -832,14 +832,14 @@ FONT = (  # Code Page 437 https://www.ascii-codes.com/
 
     # 117  0x75  u  Lower case u
     "...",
-    "#.#",
+    "...",
     "#.#",
     "#.#",
     "###",
 
     # 118  0x76  v  Lower case v
     "...",
-    "#.#",
+    "...",
     "#.#",
     "#.#",
     ".#.",

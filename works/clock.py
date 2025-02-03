@@ -205,11 +205,11 @@ try:
         #pixel_framebuf.text(get_month(result.tm_mon),0,6,Aqua,font_name=font)
         #pixel_framebuf.text(get_month(result.tm_mon),1,6,Aqua,font_name=font)
         month_tmp = get_month(result.tm_mon)
-        pixel_framebuf.text(month_tmp[0],0,7,Aqua,font_name=font)
-        pixel_framebuf.text(month_tmp[1:3],4,6,Aqua,font_name=font)
+        pixel_framebuf.text(month_tmp[0],0,7,Fuchsia,font_name=font)
+        pixel_framebuf.text(month_tmp[1:3],4,6,Fuchsia,font_name=font)
         # Day
         #pixel_framebuf.text(str(result.tm_mday).rjust(2),8,11,Fuchsia,font_name=font)
-        pixel_framebuf.text(str(result.tm_mday).rjust(2),9,11,Fuchsia,font_name=font)
+        pixel_framebuf.text(str(result.tm_mday).rjust(2),9,11,Aqua,font_name=font)
       elif result.tm_sec > 30:  # Temp
         start_x = 14 - len(last_weather) * 4
         if len(last_weather) > 3:
