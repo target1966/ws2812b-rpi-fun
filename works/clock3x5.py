@@ -33,6 +33,7 @@ parser.add_argument('-M', '--min', type=int, help='DEBUG minute to print')
 args = parser.parse_args()
 
 # Use the arguments
+timecolor=Lime
 if args.timecolor:
     print(f'{args.timecolor}')
     if valid_color(args.timecolor):
@@ -40,9 +41,8 @@ if args.timecolor:
     else:
       print("BAD timecolor option using default")
       timecolor=Lime
-else:
-    timecolor=Lime
 
+bright=0.01
 if args.brightness:
     print(f'{args.brightness}')
     if args.brightness > 0 and args.brightness <= 0.5:
@@ -50,38 +50,32 @@ if args.brightness:
     else:
       print("BAD brightness value using default")
       bright=0.01
-else:
-    bright=0.01
 
+update=15
 if args.update:
     print(f'{args.update}')
     update=args.update
-else:
-    update=15
 
+end=18
 if args.end:
     print(f'{args.end}')
     end=args.end
-else:
-    end=18
 
+start=8
 if args.start:
     print(f'{args.start}')
     start=args.start
-else:
-    start=8
 
+city="Chili, NY"
 if args.city:
     print(f'{args.city}')
     city=args.city
-else:
-    city="Chili, NY"
 
 get_weather = 0 #only get weather ever 5 minutes
 last_weather = "" 
 async def getweather() -> None:
   global last_weather
-    # declare the client. the measuring unit used defaults to the metric system (celcius, km/h, etc.)
+  # declare the client. the measuring unit used defaults to the metric system (celcius, km/h, etc.)
   async with python_weather.Client(unit=python_weather.IMPERIAL) as client:
     # fetch a weather forecast from a city
     weather = await client.get(city) # Rochester
@@ -195,14 +189,19 @@ try:
       pixel_framebuf.pixel(7,3,Blue)
       # AM/PM only display p if PM
       if result.tm_hour > 11:
-        pixel_framebuf.text("p",13,4,Navy,font_name=font)
+        #pixel_framebuf.text("p",13,4,Navy,font_name=font)
+        pixel_framebuf.pixel(14,5,Navy)
+        pixel_framebuf.pixel(15,5,Navy)
+        pixel_framebuf.pixel(14,6,Navy)
+        pixel_framebuf.pixel(15,6,Navy)
+        pixel_framebuf.pixel(14,7,Navy)
       # Flip Month/day with Day of Week every 30 sec
       #if result.tm_sec < 30:
       if result.tm_sec < 15 or ( result.tm_sec > 30 and result.tm_sec < 45):
         # Month
-        pixel_framebuf.text(get_month(result.tm_mon),0,6,Aqua,font_name=font)
+        pixel_framebuf.text(get_month(result.tm_mon),0,6,Fuchsia,font_name=font)
         # Day
-        pixel_framebuf.text(str(result.tm_mday).rjust(2),8,11,Fuchsia,font_name=font)
+        pixel_framebuf.text(str(result.tm_mday).rjust(2),8,11,Aqua,font_name=font)
       elif result.tm_sec > 30:  # Temp
         start_x = 14 - len(last_weather) * 4
         if len(last_weather) > 3:
@@ -211,7 +210,7 @@ try:
           start_x = 2
         else:
           start_x = 6
-        pixel_framebuf.text(last_weather,start_x,9,Teal,font_name=font)
+        pixel_framebuf.text(last_weather,start_x,10,Teal,font_name=font)
       else:  # DOW
         pixel_framebuf.text(get_dayofweek(result.tm_wday),2,9,Teal,font_name=font)
 
