@@ -183,18 +183,19 @@ try:
     pixel_framebuf.fill(0x000000)
     if result.tm_hour <= end and result.tm_hour >= start:
       # Print time
-      pixel_framebuf.text(f"{str(my_hour).rjust(2)}{my_min:02d}",0,0,timecolor,font_name=font)
+      #pixel_framebuf.text(f"{str(my_hour).rjust(2)}{my_min:02d}",0,0,timecolor,font_name=font)
+      pixel_framebuf.text(f"{str(my_hour).rjust(2)}{my_min:02d}",0,0,timecolor,font_name="font3x6.bin")
       # Colon
       pixel_framebuf.pixel(7,1,Blue)
       pixel_framebuf.pixel(7,3,Blue)
       # AM/PM only display p if PM
       if result.tm_hour > 11:
         #pixel_framebuf.text("p",13,4,Navy,font_name=font)
-        pixel_framebuf.pixel(14,5,Navy)
-        pixel_framebuf.pixel(15,5,Navy)
         pixel_framebuf.pixel(14,6,Navy)
         pixel_framebuf.pixel(15,6,Navy)
         pixel_framebuf.pixel(14,7,Navy)
+        pixel_framebuf.pixel(15,7,Navy)
+        pixel_framebuf.pixel(14,8,Navy)
       # Flip Month/day with Day of Week every 30 sec
       #if result.tm_sec < 30:
       if result.tm_sec < 15 or ( result.tm_sec > 30 and result.tm_sec < 45):
