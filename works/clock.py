@@ -35,7 +35,7 @@ args = parser.parse_args()
 # Use the arguments
 timecolor=Lime
 if args.timecolor:
-    print(f'{args.timecolor}')
+    print(f'Time color {args.timecolor}')
     if valid_color(args.timecolor):
       timecolor=args.timecolor
     else:
@@ -44,7 +44,7 @@ if args.timecolor:
 
 bright=0.01
 if args.brightness:
-    print(f'{args.brightness}')
+    print(f'Brightness {args.brightness}')
     if args.brightness > 0 and args.brightness <= 0.5:
       bright=args.brightness
     else:
@@ -53,22 +53,22 @@ if args.brightness:
 
 update=15
 if args.update:
-    print(f'{args.update}')
+    print(f'Update time {args.update}')
     update=args.update
 
 end=18
 if args.end:
-    print(f'{args.end}')
+    print(f'Display off time {args.end}')
     end=args.end
 
 start=8
 if args.start:
-    print(f'{args.start}')
+    print(f'Display start time {args.start}')
     start=args.start
 
 city="Chili, NY"
 if args.city:
-    print(f'{args.city}')
+    print(f'Weather City {args.city}')
     city=args.city
 
 get_weather = 0 #only get weather ever 5 minutes
@@ -77,10 +77,13 @@ async def getweather() -> None:
   global last_weather
   # declare the client. the measuring unit used defaults to the metric system (celcius, km/h, etc.)
   async with python_weather.Client(unit=python_weather.IMPERIAL) as client:
-    # fetch a weather forecast from a city
-    weather = await client.get(city) # Rochester
-    # returns the current day's forecast temperature (int)
-    last_weather = f"{weather.temperature}{chr(176)}"
+    try:
+      # fetch a weather forecast from a city
+      weather = await client.get(city) # Rochester
+      # returns the current day's forecast temperature (int)
+      last_weather = f"{weather.temperature}{chr(176)}"
+    except:
+      print("getweather RequestError")
 
 # Function to clear the matrix
 def clear():
@@ -155,6 +158,7 @@ def get_month(m):
 
 font="font3x5.bin"
 
+loop=0
 try:
   while True:
     result = time.localtime()
@@ -172,11 +176,11 @@ try:
     if my_hour > 12:
       my_hour-=12
 
-    if get_weather > 19:
-      get_weather = 0
+    if get_weather > (300/update):
+      get_weather = 1
     #print(get_weather)
     #print(last_weather)
-    if get_weather == 0:
+    if get_weather == 1:
       asyncio.run(getweather())
     get_weather += 1
   
@@ -196,14 +200,15 @@ try:
         pixel_framebuf.pixel(14,7,Navy)
         pixel_framebuf.pixel(15,7,Navy)
         pixel_framebuf.pixel(14,8,Navy)
+
       # Flip Month/day with Day of Week every 30 sec
-      #if result.tm_sec < 30:
-      if result.tm_sec < 15 or ( result.tm_sec > 30 and result.tm_sec < 45):
+      loop_pick = loop % 4
+      if loop_pick == 1 or loop_pick == 3:
         # Month
         pixel_framebuf.text(get_month(result.tm_mon),0,6,Fuchsia,font_name=font)
         # Day
         pixel_framebuf.text(str(result.tm_mday).rjust(2),8,11,Aqua,font_name=font)
-      elif result.tm_sec > 30:  # Temp
+      elif loop_pick == 2:  # Temp
         start_x = 14 - len(last_weather) * 4
         if len(last_weather) > 3:
           start_x = 1
@@ -217,6 +222,7 @@ try:
 
     pixel_framebuf.display()
     time.sleep(update)
+    loop += 1
 except KeyboardInterrupt:
   clear()
 #finally:
